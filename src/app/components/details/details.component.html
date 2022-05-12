@@ -1,0 +1,26 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container d-flex flex-row-reverse">
+    <a [routerLink]="['/home']" class="btn btn-outline-success" type="submit"
+      >Go back</a
+    >
+  </div>
+</nav>
+<div class="container my-5">
+  <div class="d-fex d-flex-row flex-wrap">
+    <div class="card mx-auto my-3">
+      <div class="card-body">
+        <h5 class="card-title">{{ hotel.name }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">
+          Address: {{ hotel.address?.street1 }}, {{ hotel.address?.zip }},
+          {{ hotel.address?.city }}, {{ hotel.address?.state?.name }},
+          {{ hotel.address?.country?.name }},
+        </h6>
+        <h6 class="card-subtitle mb-2 text-muted">
+          Contact: {{ hotel.contact }}
+        </h6>
+        <p class="card-text">Description: {{ hotel.description }}</p>
+        <p class="card-text">Price: {{ hotel.price }} {{ hotel.currency }}</p>
+      </div>
+    </div>
+  </div>
+</div>
