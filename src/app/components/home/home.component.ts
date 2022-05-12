@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { Hotel, HotelsService } from '../../services/hotels.service';
+import { debounceTime } from 'rxjs/operators';
+import { Hotel, HotelsService } from '../../core/services/hotels.service';
 
 @Component({
-  selector: 'home',
+  selector: 'app-home',
   templateUrl: './home.component.html',
 })
 export class HomeComponent implements OnInit {
@@ -15,7 +16,15 @@ export class HomeComponent implements OnInit {
     this.searchInput = new FormControl('');
   }
 
+  searchHotelsByName(name: string): void {
+    this.hotelsService.searchHotelsByName(name);
+  }
+
   ngOnInit(): void {
     this.hotelsService.getAllHotels();
+
+    this.searchInput.valueChanges
+      .pipe(debounceTime(100))
+      .subscribe((value) => this.searchHotelsByName(value));
   }
 }

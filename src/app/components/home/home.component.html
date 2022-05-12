@@ -1,14 +1,21 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-dark bg-dark">
   <div class="container d-flex flex-row-reverse">
-    <form class="d-flex w-50">
+    <div class="d-flex w-50">
       <input
         class="form-control me-2"
         type="search"
         placeholder="Search"
         aria-label="Search"
+        [formControl]="searchInput"
       />
-      <button class="btn btn-outline-success" type="submit">Search</button>
-    </form>
+      <button
+        class="btn btn-outline-success"
+        type="submit"
+        (click)="searchInput.setValue('')"
+      >
+        Clear
+      </button>
+    </div>
   </div>
 </nav>
 <div class="container my-5">
@@ -18,15 +25,20 @@
         <div class="card-body">
           <h5 class="card-title">{{ hotel.name }}</h5>
           <h6 class="card-subtitle mb-2 text-muted">
-            Address: {{ hotel.address?.street }}, {{ hotel.address?.city }}
+            Address: {{ hotel.address?.street1 }}, {{ hotel.address?.city }}
           </h6>
           <h6 class="card-subtitle mb-2 text-muted">
             Contact: {{ hotel.contact }}
           </h6>
           <p class="card-text">Description: {{ hotel.description }}</p>
-          <a href="#" class="card-link">View details</a>
+          <a [routerLink]="['/details', hotel.code]" class="card-link"
+            >View details</a
+          >
         </div>
       </div>
     </div>
+  </ng-container>
+  <ng-container *ngIf="(hotels | async).length === 0">
+    There are no Hotels
   </ng-container>
 </div>
